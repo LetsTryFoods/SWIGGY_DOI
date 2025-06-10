@@ -84,6 +84,7 @@ if sales_file and inventory_file:
     # Final DF
     final_df = merged_df[['CITY', 'ITEM_CODE', 'PRODUCT_NAME', 'UNITS_SOLD', 'WAREHOUSE_QTY', 'OPEN_PO_QUANTITY', 'DOI']]
     final_df['DOI'] = np.floor(final_df['DOI'])
+    final_df['DAILY_SALES'] = np.round(final_df['DAILY_SALES'])
     final_df = final_df.sort_values(by=['CITY', 'DOI'], ascending=[True, False])
 
 
@@ -185,6 +186,7 @@ if sales_file and inventory_file:
                 axis=1
             )
             grouped['DOI'] = np.floor(grouped['DOI'])
+            grouped['DAILY_SALES'] = np.round(grouped['DAILY_SALES'])
             st.dataframe(grouped, use_container_width=True)
 
         # CASE 2: Only products selected (and not cities)
@@ -196,12 +198,14 @@ if sales_file and inventory_file:
                 axis=1
             )
             grouped['DOI'] = np.floor(grouped['DOI'])
+            grouped['DAILY_SALES'] = np.round(grouped['DAILY_SALES'])
             st.dataframe(grouped, use_container_width=True)
 
         # CASE 3: Show detailed table
         else:
             grouped = filtered_df[['CITY', 'ITEM_CODE', 'PRODUCT_NAME', 'UNITS_SOLD', 'WAREHOUSE_QTY', 'OPEN_PO_QUANTITY', 'DOI']]
             grouped['DOI'] = np.floor(grouped['DOI'])
+            grouped['DAILY_SALES'] = np.round(grouped['DAILY_SALES'])
             st.dataframe(grouped, use_container_width=True)
 
 
