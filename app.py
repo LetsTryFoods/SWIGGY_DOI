@@ -33,7 +33,7 @@ if sales_file and inventory_file:
 
     # Number of Days Input
     unique_days = Sales_df['ORDERED_DATE'].nunique()
-    x = st.number_input(f"Select number of recent days to calculate DOI (Max: {unique_days})", min_value=1, max_value=unique_days, value=7)
+    x = st.number_input(f"Select number of recent days to calculate DOI (Max: {unique_days})", min_value=1, max_value=unique_days, value=1)
 
     # Filter Last x Days
     recent_dates = Sales_df['ORDERED_DATE'].drop_duplicates().sort_values().tail(x)
