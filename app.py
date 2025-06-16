@@ -73,7 +73,7 @@ if sales_file and inventory_file:
     # DOI Calculation
     merged_df['DAILY_SALES'] = merged_df['UNITS_SOLD'] / x
     merged_df['DOI'] = merged_df.apply(
-        lambda row: round(row['WAREHOUSE_QTY'] / row['DAILY_SALES'], 2) if row['DAILY_SALES'] > 0 else 0,
+        lambda row: round(row['WAREHOUSE_QTY'] / row['DAILY_SALES'], 2) if row['DAILY_SALES'] > 0 else row['WAREHOUSE_QTY'],
         axis=1
     )
 
@@ -173,7 +173,7 @@ if sales_file and inventory_file:
         # Recalculate metrics
         filtered_df['DAILY_SALES'] = filtered_df['UNITS_SOLD'] / x
         filtered_df['DOI'] = filtered_df.apply(
-            lambda row: round(row['WAREHOUSE_QTY'] / row['DAILY_SALES'], 2) if row['DAILY_SALES'] > 0 else 0,
+            lambda row: round(row['WAREHOUSE_QTY'] / row['DAILY_SALES'], 2) if row['DAILY_SALES'] > 0 else row['WAREHOUSE_QTY'],
             axis=1
         )
 
@@ -182,7 +182,7 @@ if sales_file and inventory_file:
             grouped = filtered_df.groupby('CITY')[['UNITS_SOLD', 'WAREHOUSE_QTY', 'OPEN_PO_QUANTITY']].sum().reset_index()
             grouped['DAILY_SALES'] = grouped['UNITS_SOLD'] / x
             grouped['DOI'] = grouped.apply(
-                lambda row: round(row['WAREHOUSE_QTY'] / row['DAILY_SALES'], 2) if row['DAILY_SALES'] > 0 else 0,
+                lambda row: round(row['WAREHOUSE_QTY'] / row['DAILY_SALES'], 2) if row['DAILY_SALES'] > 0 else row['WAREHOUSE_QTY'],
                 axis=1
             )
             grouped['DOI'] = np.floor(grouped['DOI'])
@@ -194,7 +194,7 @@ if sales_file and inventory_file:
             grouped = filtered_df.groupby('PRODUCT_NAME')[['UNITS_SOLD', 'WAREHOUSE_QTY', 'OPEN_PO_QUANTITY']].sum().reset_index()
             grouped['DAILY_SALES'] = grouped['UNITS_SOLD'] / x
             grouped['DOI'] = grouped.apply(
-                lambda row: round(row['WAREHOUSE_QTY'] / row['DAILY_SALES'], 2) if row['DAILY_SALES'] > 0 else 0,
+                lambda row: round(row['WAREHOUSE_QTY'] / row['DAILY_SALES'], 2) if row['DAILY_SALES'] > 0 else row['WAREHOUSE_QTY'],
                 axis=1
             )
             grouped['DOI'] = np.floor(grouped['DOI'])
